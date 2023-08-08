@@ -1,0 +1,5 @@
+# não comita a pasta do ambiente virtual
+venv/
+
+# não comita o arquivo com as credenciais do banco de dados
+config.py

@@ -1,0 +1,37 @@
+{% extends 'base_login.html' %}
+
+  {% block conteudo %}
+<script>
+   function deleteCookie(cookieName) {
+    document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    window.location.replace("http://localhost:5000")
+    }
+
+    function preventBack() {
+            window.history.forward(); 
+        }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+</script>
+
+<div id="container">
+  <img id="logo" src="{{ image_url }}" alt="Logo 400x400 px"><br>
+
+
+ <form action="/login_user" method="POST">
+    <!-- campos do formulário -->
+    <div id="form">
+      <input type="text" name="username" placeholder="Nome do usuário">
+      <input type="password" name="password" placeholder="Senha">
+      {% if error %}
+      <p>{{ error }}</p>
+      {% endif %}
+      <button type="submit">Entrar</button>
+      <button id="sair" type="button" onclick="deleteCookie('empresa')">Sair</button>
+    </div>
+  </form>
+      
+</div>
+
+
+  {% endblock %}

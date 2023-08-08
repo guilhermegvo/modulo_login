@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administração de Itens</title>
+  <style>
+    .tabs-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      flex: 1 1 200px;
+      display: none;
+    }
+
+    .tab.active {
+      display: block;
+    }
+
+    /* Estilos visuais opcionais para as abas */
+    .tab-header {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .tab-header button {
+      padding: 10px 15px;
+      cursor: pointer;
+      border: none;
+      background-color: #f2f2f2;
+    }
+
+    .tab-header button:hover {
+      background-color: #ddd;
+    }
+
+    /* Estilos para os campos do formulário */
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      margin-bottom: 5px;
+    }
+
+    .form-field input {
+      padding: 5px;
+    }
+
+    /* Estilos para o rodapé das abas */
+    .tab-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab-header">
+    <button onclick="openTab('tab1')">Aba 1</button>
+    <button onclick="openTab('tab2')">Aba 2</button>
+    <button onclick="openTab('tab3')">Aba 3</button>
+  </div>
+
+  <div class="tabs-container">
+    <div id="tab1" class="tab active">
+      <!-- Conteúdo da Aba 1 -->
+      <h2>Cadastrar itens na Aba 1</h2>
+      <form method="post" action="/admin">
+        <input type="hidden" name="tab" value="tab1">
+        <div class="form-field">
+          <label for="field1-1">Campo 1:</label>
+          <input type="text" id="field1-1" name="field1-1">
+        </div>
+        <div class="form-field">
+          <label for="field2-1">Campo 2:</label>
+          <input type="text" id="field2-1" name="field2-1">
+        </div>
+        <div class="form-field">
+          <label for="field3-1">Campo 3:</label>
+          <input type="text" id="field3-1" name="field3-1">
+        </div>
+        <div class="tab-footer">
+          <button type="button" onclick="clearFields('tab1')">Apagar</button>
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+
+      <h2>Pesquisar Empresa</h2>
+      <form method="post" action="/admin">
+        <div>
+          <div class="form-field">
+            <label for="field1-1">Pesquisa Empresa:</label>
+            <input type="text" id="pes_empresa" name="pes_empresa">
+          </div>
+          <div class="tab-footer">
+          <button type="submit">Pesquisar</button>
+          </div>
+        </div>
+      </form>
+      
+      <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Idade</th>
+        </tr>
+        {% for dado in dados %}
+        <tr>
+            <td>{{ dado[0] }}</td>
+            <td>{{ dado[1] }}</td>
+            <td>{{ dado[2] }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    
+    </div>
+
+
+    <div id="tab2" class="tab">
+      <!-- Conteúdo da Aba 2 -->
+      <h2>Cadastrar itens na Aba 2</h2>
+      <form method="post" action="/admin">
+        <input type="hidden" name="tab" value="tab2">
+        <div class="form-field">
+          <label for="field1-2">Campo 1:</label>
+          <input type="text" id="field1-2" name="field1-2">
+        </div>
+        <div class="form-field">
+          <label for="field2-2">Campo 2:</label>
+          <input type="text" id="field2-2" name="field2-2">
+        </div>
+        <div class="form-field">
+          <label for="field3-2">Campo 3:</label>
+          <input type="text" id="field3-2" name="field3-2">
+        </div>
+        <div class="tab-footer">
+          <button type="button" onclick="clearFields('tab2')">Apagar</button>
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="tab3" class="tab">
+      <!-- Conteúdo da Aba 3 -->
+      <h2>Cadastrar itens na Aba 3</h2>
+      <form method="post" action="/admin">
+        <input type="hidden" name="tab" value="tab3">
+        <div class="form-field">
+          <label for="field1-3">Campo 1:</label>
+          <input type="text" id="field1-3" name="field1-3">
+        </div>
+        <div class="form-field">
+          <label for="field2-3">Campo 2:</label>
+          <input type="text" id="field2-3" name="field2-3">
+        </div>
+        <div class="form-field">
+          <label for="field3-3">Campo 3:</label>
+          <input type="text" id="field3-3" name="field3-3">
+        </div>
+        <div class="tab-footer">
+          <button type="button" onclick="clearFields('tab3')">Apagar</button>
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openTab(tabName) {
+      // Esconder todas as abas
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Exibir a aba selecionada
+      const selectedTab = document.getElementById(tabName);
+      selectedTab.classList.add('active');
+    }
+
+    function clearFields(tabName) {
+      // Limpar os campos de entrada na aba selecionada
+      const fields = document.querySelectorAll(`#${tabName} input[type="text"]`);
+      fields.forEach(field => field.value = '');
+    }
+  </script>
+</body>
+</html>
