@@ -21,8 +21,8 @@
  <form action="/login_user" method="POST">
     <!-- campos do formulário -->
     <div id="form">
-      <input type="text" name="username" placeholder="Nome do usuário">
-      <input type="password" name="password" placeholder="Senha">
+      <input type="text" name="username" placeholder="Nome do usuário" required maxlength="35">
+      <input type="password" name="password" placeholder="Senha" required maxlength="11">
       {% if error %}
       <p>{{ error }}</p>
       {% endif %}
