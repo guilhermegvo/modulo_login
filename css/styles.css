@@ -1,0 +1,72 @@
+/* Estilos para o menu */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.center {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+
+/* Estilos para o logotipo */
+.logo {
+    display: flex;
+    align-items: center; /* Centralizar verticalmente na altura do contêiner */
+}
+
+.logo img {
+    width: 120px;
+    height: 120px;
+    margin-right: 10px; /* Espaço à direita da imagem */
+}
+
+nav {
+    background-color: rgb(255, 255, 255); /* Cor de Fundo */
+    height: 100px;
+    display: flex;
+    font-weight: bold;
+    align-items: center; /* Centralizar verticalmente na altura do contêiner */
+}
+
+nav li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 15px; /* Espaço entre os itens do menu */
+}
+
+nav li a {
+    color: rgb(0, 0, 0); /* Cor do texto */
+    text-decoration: none;
+    text-align: center;
+    padding: 15px;
+    display: inline-block;
+}
+
+nav li a:hover {
+    background-color: rgb(133, 132, 132);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dropdown-menu {
+    position: absolute;
+    box-shadow: 0 0 2px rgb(133, 132, 132);
+    display: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: black;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}

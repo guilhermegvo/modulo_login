@@ -8,50 +8,11 @@ app = Flask(__name__)
 def index():
     if request.method == 'GET':
         #Se estiver logado reenderiza a pagina main.html
-        return verifica_login()
-  
-@app.route('/login_empresa', methods=['POST', 'GET'])
-def login_empresa():
+#        return verifica_login()
+         return render_template('main.html')
 
-    if request.method == 'POST':
-        empresa = request.form['empresa']
-        senha = request.form['password']
 
-        #Verificar se o login é válido
-        e = login_empresa_valido(empresa, senha)
-
-        #Se houver retorno na consulta ao bd
-        if e:
-            #Cria o conteúdo do cookie "empresa"
-            ck_empresa = {
-            "empresa": empresa,
-            "id_empresa": e[0][0]
-            }
-            json_texto = json.dumps(ck_empresa)
-            #Redireciona para a tela de login usuário
-            image_url = "static/" + empresa + ".png"
-            res = make_response(render_template('login_user.html', image_url=image_url))
-            #Cria o cookie "empresa"
-            res.set_cookie( 
-                key="empresa",
-                value=json_texto,
-                max_age= 600000, 
-                #path = 
-                domain=None,
-                secure=False,
-                httponly=False
-                #samesite=False
-            )
-            return res
-        else:
-            #Criar alerta para login com erro
-            error_message="Empresa ou senha incorreta"
-            return render_template('login_empresa.html', error=error_message)
-
-    if request.method == 'GET':
-        return verifica_login()
-
-@app.route('/login_user', methods=['POST', 'GET'])
+@app.route('/login_CA', methods=['POST', 'GET'])
 def login_user():
        
     if request.method == 'POST':
@@ -86,7 +47,7 @@ def login_user():
             error_message="Usuário ou senha incorreta"
             ck = get_cookies()
             image_url = "static/" + ck[0] + ".png"
-            return render_template('login_user.html', error=error_message, image_url=image_url)
+            return render_template('login_CA.html', error=error_message, image_url=image_url)
     
     if request.method == 'GET':
         return verifica_login()
@@ -113,6 +74,19 @@ def admin():
             aba_origem = request.form['tab']
             print(f"Formulário enviado da aba: {aba_origem}")
         return render_template('admin.html')
+
+#EXEMPLO TESTE
+@app.route('/teste', methods=['POST', 'GET'])
+def testeexe():
+
+    if request.method == 'GET':
+
+        return render_template('Cadastro_Empresa.html')
+    
+    if request.method == 'POST':
+       
+        return 'ok'
+
 
 if __name__ == '__main__':
     app.run(debug=True)

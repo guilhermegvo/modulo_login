@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro Produtos</title>
+  <link rel="stylesheet" href="/css/cadastro.css">
+</head>
+<body>
+  <main>
+    <h1>Cadastre o Produto</h1>
+    
+    <form action="/processar_formulario.php" method="post">
+      <label for="codigo">
+        <span>Código do Produto</span>
+        <input type="text" id="codigo" name="codigo">
+      </label>
+
+      <label for="descricao">
+        <span>Descrição do Produto</span>
+        <input type="text" id="descricao" name="descricao">
+      </label>
+
+      <label for="preco">
+        <span>Preço</span>
+        <input type="text" id="preco" name="preco">
+      </label>
+
+      <label for="quantidade">
+        <span>Quantidade</span>
+        <input type="text" id="quantidade" name="quantidade">
+      </label>
+
+      <input type="submit" value="Cadastre">
+    </form>
+  </main>
+  <section class="images">
+    <img src="/static/logo.png" alt="Logo">
+    <div class="circle"></div>
+  </section>
+</body>
+</html>

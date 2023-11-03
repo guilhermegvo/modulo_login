@@ -1,7 +1,9 @@
 from config import host, database, user, password
 import psycopg2
 
+
 class PgConection:
+
     def __init__(self, host=host, database=database, user=user, password=password):
         self.host = host
         self.database = database
@@ -36,3 +38,4 @@ class PgConection:
                 return False
             else:
                 return resultado
+            

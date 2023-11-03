@@ -1,7 +1,7 @@
 from dbcon import PgConection
 from flask import render_template, request, make_response
 import json
-
+PgCon = PgConection()
 
 def login_user_valido(usuario, senha):
     PgCon = PgConection()
@@ -51,5 +51,5 @@ def verifica_login():
             return res
     else:
         #print("Empresa não logado!")
-        res = make_response(render_template('login_empresa.html'))
+        res = make_response(render_template('login_CA.html'))
         return res
