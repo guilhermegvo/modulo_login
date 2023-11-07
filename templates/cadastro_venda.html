@@ -5,23 +5,18 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro Produtos</title>
-  <link rel="stylesheet" href="/css/cadastro.css">
+  <link rel="stylesheet" href="/static/cadastro.css">
 
 </head>
 <body>
   <div>
-    <iframe style="border:0" src="/assets/custom-header.html" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
+    <iframe style="border:0" src="/templates/custom-header.html" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
 
     <main>
       <div class="alinhamento" >
         <h1>Cadastre a Venda</h1>
         
         <form action="/processar_formulario.php" method="post">
-
-          <label for="nvenda">
-            <span>N Venda</span> <!--Gerar o numero automático-->
-            <input type="text" id="nvenda" name="nvenda">
-          </label>
 
           <label for="codigo">
             <span>Código do Produto</span>

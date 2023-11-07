@@ -1,16 +1,31 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, request
 from funcs import *
 import json
+from datetime import datetime
 
 app = Flask(__name__)
+app.static_url_path = '/static'
+app.static_folder = 'static'
 
-@app.route('/', methods=['POST', 'GET'])
+
+@app.route('/')
 def index():
-    if request.method == 'GET':
-        #Se estiver logado reenderiza a pagina main.html
-#        return verifica_login()
-         return render_template('main.html')
+        nome_produto = request.args.get('nome_produto')
+        descricao = request.args.get('descricao')
+        categoria = request.args.get('categoria')
+        marca = request.args.get('marca')
+        preco_unitario = request.args.get('preco_unitario')
+        quantidade = request.args.get('quantidade')
+        import datetime
+        data_cadastro = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        dados_produto = (nome_produto, descricao, categoria, marca, preco_unitario, quantidade, data_cadastro)
+        cadastro_produto(dados_produto)
 
+        # Obtenha o HTML do menu suspenso
+        custom_header = render_template('custom-header.html')
+        
+        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
+        return render_template('cadastro_produto.html', custom_header=custom_header)
 
 @app.route('/login_CA', methods=['POST', 'GET'])
 def login_user():
@@ -81,12 +96,11 @@ def testeexe():
 
     if request.method == 'GET':
 
-        return render_template('Cadastro_Empresa.html')
+        return render_template('cadastro_empresa.html')
     
     if request.method == 'POST':
        
         return 'ok'
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

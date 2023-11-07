@@ -1,6 +1,7 @@
 from dbcon import PgConection
 from flask import render_template, request, make_response
 import json
+
 PgCon = PgConection()
 
 def login_user_valido(usuario, senha):
@@ -53,3 +54,40 @@ def verifica_login():
         #print("Empresa não logado!")
         res = make_response(render_template('login_CA.html'))
         return res
+    
+
+#Inserir os dados em cadastro_produto
+
+#INSERT INTO clientes (nome_cliente, cpf, email, cep, endereco, cidade, estado, telefone, data_cadastro) VALUES
+#   ('Cliente 1', '123.456.789-01', 'cliente1@email.com', '12345-678', 'Rua A, 123', 'Cidade A', 'Estado A', '(123) 456-7890', '2023-11-05'),
+
+import psycopg2
+
+def cadastro_produto(dados_produto):
+    conn = None
+    try:
+        conn = psycopg2.connect(
+            host="silly.db.elephantsql.com",
+            database="jrrgophc",
+            user="jrrgophc",
+            password="GlgXs8QFugqfKqkQ_lG9cV4ligNtq0mm"
+        )
+        cursor = conn.cursor()
+        query = """
+            INSERT INTO cadastro_produto (nome_produto, descricao, categoria, marca, preco_unitario, quantidade, data_cadastro)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            RETURNING id;
+        """
+        cursor.execute(query, dados_produto)
+        id = cursor.fetchone()[0]
+        conn.commit()
+        return id
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"Erro: {error}")
+    finally:
+        if conn is not None:
+            conn.close()
+
+
+
+
