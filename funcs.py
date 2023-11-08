@@ -4,6 +4,17 @@ import json
 
 PgCon = PgConection()
 
+def get_cursor():
+    conn = psycopg2.connect(
+        host="silly.db.elephantsql.com",
+        database="jrrgophc",
+        user="jrrgophc",
+        password="GlgXs8QFugqfKqkQ_lG9cV4ligNtq0mm"
+    )
+    return conn.cursor()
+
+
+
 def login_user_valido(usuario, senha):
     PgCon = PgConection()
     query = "SELECT id_usuario FROM usuarios WHERE usuario = '%s' AND senha = '%s'" % (usuario, senha)
@@ -66,13 +77,7 @@ import psycopg2
 def cadastro_produto(dados_produto):
     conn = None
     try:
-        conn = psycopg2.connect(
-            host="silly.db.elephantsql.com",
-            database="jrrgophc",
-            user="jrrgophc",
-            password="GlgXs8QFugqfKqkQ_lG9cV4ligNtq0mm"
-        )
-        cursor = conn.cursor()
+        cursor = get_cursor()
         query = """
             INSERT INTO cadastro_produto (nome_produto, descricao, categoria, marca, preco_unitario, quantidade, data_cadastro)
             VALUES (%s, %s, %s, %s, %s, %s, %s)

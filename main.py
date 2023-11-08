@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, make_response, request
 from funcs import *
 import json
-from datetime import datetime
+import datetime
+
 
 app = Flask(__name__)
 app.static_url_path = '/static'
@@ -10,22 +11,12 @@ app.static_folder = 'static'
 
 @app.route('/')
 def index():
-        nome_produto = request.args.get('nome_produto')
-        descricao = request.args.get('descricao')
-        categoria = request.args.get('categoria')
-        marca = request.args.get('marca')
-        preco_unitario = request.args.get('preco_unitario')
-        quantidade = request.args.get('quantidade')
-        import datetime
-        data_cadastro = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        dados_produto = (nome_produto, descricao, categoria, marca, preco_unitario, quantidade, data_cadastro)
-        cadastro_produto(dados_produto)
-
-        # Obtenha o HTML do menu suspenso
-        custom_header = render_template('custom-header.html')
-        
         # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
-        return render_template('cadastro_produto.html', custom_header=custom_header)
+        return render_template('cadastro_produto.html')
+
+@app.route('/meuteste')
+def newindex():
+    return render_template('newmain.html')
 
 @app.route('/login_CA', methods=['POST', 'GET'])
 def login_user():
@@ -93,14 +84,27 @@ def admin():
 #EXEMPLO TESTE
 @app.route('/teste', methods=['POST', 'GET'])
 def testeexe():
+    print('a')
+# GET = PEGAR VALORES | POST = CADASTRAR | PUT = ATUALIZAR | DELETE = DELETAR
 
-    if request.method == 'GET':
-
-        return render_template('cadastro_empresa.html')
-    
+@app.route('/api/produtos', methods=['POST', 'GET'])
+def produtos():
+    print(request)
     if request.method == 'POST':
-       
-        return 'ok'
+        #data = request.get_json()
+        nome_produto = request.form['nome_produto']
+        descricao = request.form['descricao']
+        categoria = request.form['categoria']
+        marca = request.form['marca']
+        preco_unitario = request.form['preco_unitario']
+        quantidade = request.form['quantidade']
+        data_cadastro = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        dados_produto = (nome_produto, descricao, categoria, marca, preco_unitario, quantidade, data_cadastro)
+        
+        cadastro_produto(dados_produto)
+
+        return render_template('cadastro_produto.html')
 
 if __name__ == '__main__':
     app.run()
