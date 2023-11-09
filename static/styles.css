@@ -106,11 +106,43 @@ nav li a:hover {
 }
 
 .dropdown-content a:hover {
-    background-color: #1b2029;
+    background-color: #5952d4;
     z-index: 4;
 }
 
 /* Estilo para realçar a página atual no menu suspenso */
 .dropdown-content a[href$=".html"]:hover {
     background-color: #5952d4;
+}
+
+table{
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #5952d4;
+}
+
+table tr:hover {
+    background-color: #5952d4;
+}
+
+section.img_main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+img {
+    height: 500px;
+    width: 500px;
 }

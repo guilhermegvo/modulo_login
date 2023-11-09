@@ -15,11 +15,13 @@
       document.getElementById("formProduto").addEventListener("submit", function (event) {
         Swal.fire({
           title: "Cadastrado!",
-          text: "Produdo cadastrado com sucesso!",
-          icon: "success"
-        })
+          text: "Produto cadastrado com sucesso!",
+          icon: "success",
+          timer: 9999 // Tempo em milissegundos (9.999 segundos)
+        });
       });
-    }, 2000);
+    }, 5000);
+  </script>
 
   </script>
 </head>
@@ -30,12 +32,10 @@
 
   <main>
 
-    <!--{{ custom_header|safe }}!-->
-
     <div class="alinhamento">
       <h1>Cadastre o Produto</h1>
 
-      <form id="formProduto" action="/api/produtos" method="POST">
+      <form id="formProduto" action="/api/produto" method="POST">
 
         <label for="nome_produto">
           <span>Nome do Produto</span>
@@ -74,8 +74,6 @@
       <img src="/static/logo.png" alt="Logo">
     </section>
   </main>
-
-
 
 </body>
 

@@ -36,7 +36,7 @@ main .alinhamento {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 2.5rem;
+    margin-top: 1rem;
 }
 
 main h1 {
@@ -101,17 +101,6 @@ section.images {
 section.images img {
     height: 300px;
     width: 300px;
-}
-
-section.images .circle {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background: linear-gradient(45deg, #e8cbc0, #636fa4);
-    clip-path: circle(57% at right 80%);
-    z-index: -1;
 }
 
 /* Estilos específicos para telas menores, como celulares */

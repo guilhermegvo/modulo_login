@@ -3,17 +3,9 @@ from funcs import *
 import json
 import datetime
 
-
 app = Flask(__name__)
-app.static_url_path = '/static'
-app.static_folder = 'static'
 
-
-@app.route('/meuteste')
-def newindex():
-    return render_template('newmain.html')
-
-@app.route('/login_CA', methods=['POST', 'GET'])
+@app.route('/', methods=['POST', 'GET'])
 def login_user():
        
     if request.method == 'POST':
@@ -75,11 +67,76 @@ def admin():
             aba_origem = request.form['tab']
             print(f"Formulário enviado da aba: {aba_origem}")
         return render_template('admin.html')
-
-
+    
 # GET = PEGAR VALORES | POST = CADASTRAR | PUT = ATUALIZAR | DELETE = DELETAR
 
-@app.route('/api/produtos', methods=['POST', 'GET'])
+#____________________________________________________________________________
+#MAIN
+@app.route('/main')
+def index():
+        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
+        return render_template('main.html')
+
+#____________________________________________________________________________
+#CADASTRO_CLIENTE
+@app.route('/cadastro_cliente')
+def cad_cliente():
+    return render_template('cadastro_cliente.html')
+
+@app.route('/api/cliente', methods=['POST', 'GET'])
+def cliente():
+    print(request)
+    if request.method == 'POST':
+        #data = request.get_json()
+        nome_cliente = request.form['nome_cliente']
+        cpf = request.form['cpf']
+        email = request.form['email']
+        cep = request.form['cep']
+        endereco = request.form['endereco']
+        cidade = request.form['cidade']
+        estado = request.form['estado']
+        telefone = request.form['telefone']
+        
+        dados_cliente = (nome_cliente, cpf, email, cep, endereco, cidade, estado, telefone)
+        
+        cadastro_cliente (dados_cliente)
+
+        return render_template('cadastro_cliente.html')
+
+#____________________________________________________________________________
+#CADASTRO_EMPRESA
+@app.route('/cadastro_empresa')
+def cad_empresa():
+        return render_template('cadastro_empresa.html')
+
+@app.route('/api/empresa', methods=['POST', 'GET'])
+def empresa():
+    print(request)
+    if request.method == 'POST':
+        #data = request.get_json()
+        nome_empresa = request.form['nome_empresa']
+        cnpj = request.form['cnpj']
+        email = request.form['email']
+        cep = request.form['cep']
+        endereco = request.form['endereco']
+        cidade = request.form['cidade']
+        estado = request.form['estado']
+        telefone = request.form['telefone']
+        
+        dados_empresa = (nome_empresa, cnpj, email, cep, endereco, cidade, estado, telefone)
+        
+        cadastro_empresa(dados_empresa)
+
+        return render_template('cadastro_empresa.html')
+
+#____________________________________________________________________________
+#CADASTRO_PRODUTO
+@app.route('/cadastro_produto')
+def cad_produto():
+        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
+    return render_template('cadastro_produto.html')
+
+@app.route('/api/produto', methods=['POST', 'GET'])
 def produtos():
     print(request)
     if request.method == 'POST':
@@ -97,11 +154,52 @@ def produtos():
         cadastro_produto(dados_produto)
 
         return render_template('cadastro_produto.html')
-    
-app.route('/')
-def index():
-        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
-        return render_template('cadastro_produto.html')
 
+#____________________________________________________________________________
+#CADASTRO_VENDA
+@app.route('/cadastro_venda')
+def cad_venda():
+        return render_template('cadastro_venda.html')
+
+@app.route('/api/venda', methods=['POST', 'GET'])
+def venda():
+    print(request)
+    if request.method == 'POST':
+        #data = request.get_json()
+        produto = request.form['produto']
+        descricao = request.form['descricao']
+        preco = request.form['preco']
+        quantidade = request.form['quantidade']
+        cliente = request.form['cliente']
+        data_cadastro = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        
+        dados_venda = (produto, descricao, preco, quantidade, cliente, data_cadastro)
+        
+        cadastro_venda(dados_venda)
+
+        return render_template('cadastro_venda.html')
+
+#____________________________________________________________________________
+#CONTAS_PAGAR
+@app.route('/contas_pagar')
+def con_pagar():
+        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
+        return render_template('contas_pagar.html')
+
+#____________________________________________________________________________
+#CONTAS_RECBER
+@app.route('/contas_receber')
+def con_receber():
+        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
+        return render_template('contas_receber.html')
+
+#____________________________________________________________________________
+#CONTROLE DE ESTOQUE   
+# Rota para exibir a quantidade de produtos em estoque
+@app.route('/controle_estoque')
+def controle_estoque():
+        produtos = get_lista_produtos()
+        return render_template('controle_estoque.html', produtos=produtos)
+    
 if __name__ == '__main__':
     app.run()

@@ -5,15 +5,17 @@ import json
 PgCon = PgConection()
 
 def get_cursor():
-    conn = psycopg2.connect(
-        host="silly.db.elephantsql.com",
-        database="jrrgophc",
-        user="jrrgophc",
-        password="GlgXs8QFugqfKqkQ_lG9cV4ligNtq0mm"
-    )
-    return conn.cursor()
-
-
+    try:
+        conn = psycopg2.connect(
+            host="silly.db.elephantsql.com",
+            database="jrrgophc",
+            user="jrrgophc",
+            password="GlgXs8QFugqfKqkQ_lG9cV4ligNtq0mm"
+        )
+        return conn.cursor()
+    except psycopg2.Error as e:
+        print("Erro ao conectar ao banco de dados:", e)
+        return None
 
 def login_user_valido(usuario, senha):
     PgCon = PgConection()
@@ -74,6 +76,50 @@ def verifica_login():
 
 import psycopg2
 
+#____________________________________________________________________________
+#CADASTRO_CLIENTE
+def cadastro_cliente(dados_cliente):
+    conn = None
+    try:
+        cursor = get_cursor()
+        query = """
+            INSERT INTO cadastro_produto (nome_cliente, cpf, email, cep, endereco, cidade, estado, telefone)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            RETURNING id;
+        """
+        cursor.execute(query, dados_cliente)
+        id = cursor.fetchone()[0]
+        conn.commit()
+        return id
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"Erro: {error}")
+    finally:
+        if conn is not None:
+            conn.close()
+
+#____________________________________________________________________________
+#CADASTRO_EMPRESA
+def cadastro_empresa(dados_empresa):
+    conn = None
+    try:
+        cursor = get_cursor()
+        query = """
+            INSERT INTO cadastro_produto (nome_empresa, cnpj, email, cep, endereco, cidade, estado, telefone)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            RETURNING id;
+        """
+        cursor.execute(query, dados_empresa)
+        id = cursor.fetchone()[0]
+        conn.commit()
+        return id
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"Erro: {error}")
+    finally:
+        if conn is not None:
+            conn.close()
+
+#____________________________________________________________________________
+#CADASTRO_PRODUTO
 def cadastro_produto(dados_produto):
     conn = None
     try:
@@ -93,6 +139,48 @@ def cadastro_produto(dados_produto):
         if conn is not None:
             conn.close()
 
+#____________________________________________________________________________
+#CADASTRO_VENDAS
+def cadastro_venda(dados_venda):
+    conn = None
+    try:
+        cursor = get_cursor()
+        query = """
+            INSERT INTO cadastro_produto (produto, descricao, preco, quantidade, cliente, data_cadastro)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            RETURNING id;
+        """
+        cursor.execute(query, dados_venda)
+        id = cursor.fetchone()[0]
+        conn.commit()
+        return id
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"Erro: {error}")
+    finally:
+        if conn is not None:
+            conn.close()
+    
+#____________________________________________________________________________
+#CONTROLE_ESTOQUE           
+# Função para obter a quantidade de produtos em estoque
+def get_lista_produtos():
+    conn = get_cursor()
 
+    if conn:
+        try:
+            cursor = conn
 
+            # Consulta para obter a lista de produtos
+            query = "SELECT * FROM cadastro_produto"
+            cursor.execute(query)
 
+            lista_produtos = cursor.fetchall()
+
+            return lista_produtos
+        except psycopg2.Error as e:
+            print("Erro ao executar a consulta:", e)
+            return []
+        finally:
+            conn.close()
+    else:
+        return []

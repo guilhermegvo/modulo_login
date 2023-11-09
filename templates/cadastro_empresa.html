@@ -1,71 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro Produtos</title>
   <link rel="stylesheet" href="/static/cadastro.css">
+  <link rel="stylesheet" type="text/css" href="/static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <script>
+    setTimeout(() => {
+      document.getElementById("formProduto").addEventListener("submit", function (event) {
+        Swal.fire({
+          title: "Cadastrado!",
+          text: "Produdo cadastrado com sucesso!",
+          icon: "success"
+        })
+      });
+    }, 5000);
+
+  </script>
 </head>
+
 <body>
-  <div>
-    <iframe style="border:0" src="/templates/custom-header.html" frameborder="0" width="100%" height="100%" scrolling="no"></iframe>
 
-    <main>
-      <div class="alinhamento" >
-        <h1>Cadastre a Empresa</h1>
-        
-        <form action="/processar_formulario.php" method="post">
-          
-          <label for="nome_empresa">
-            <span>Nome da Empresa</span>
-            <input type="text" id="nome_empresa" name="nome_empresa">
-          </label>
+  {% include 'custom-header.html' %}
 
-          <label for="cnpj">
-            <span>CNPJ</span>
-            <input type="text" id="cnpj" name="cnpj">
-          </label>
+  <main>
 
-          <label for="email">
-            <span>e-mail</span>
-            <input type="text" id="email" name="email">
-          </label>
+    <div class="alinhamento">
+      <h1>Cadastre a Empresa</h1>
 
-          <label for="cep">
-            <span>CEP</span>
-            <input type="text" id="cep" name="cep">
-          </label>
+      <form id="formProduto" action="/api/empresa" method="POST">
 
-          <label for="endereco">
-            <span>Endereço</span>
-            <input type="text" id="endereco" name="endereco">
-          </label>
+        <label for="nome_empresa">
+          <span>Nome da Empresa</span>
+          <input type="text" id="nome_empresa" name="nome_empresa">
+        </label>
 
-          <label for="cidade">
-            <span>Cidade</span>
-            <input type="text" id="cidade" name="cidade">
-          </label>
+        <label for="cnpj">
+          <span>CNPJ</span>
+          <input type="text" id="cnpj" name="cnpj">
+        </label>
 
-          <label for="estado">
-            <span>Estado</span>
-            <input type="text" id="estado" name="estado">
-          </label>
+        <label for="email">
+          <span>e-mail</span>
+          <input type="text" id="email" name="email">
+        </label>
 
-          <label for="telefone">
-            <span>Telefone</span>
-            <input type="text" id="telefone" name="telefone">
-          </label>
+        <label for="cep">
+          <span>CEP</span>
+          <input type="text" id="cep" name="cep">
+        </label>
 
-          <input type="submit" value="Cadastre">
-        </form>
-      </div>
-      <section class="images">
-        <img src="/static/logo.png" alt="Logo">
-      </section>
-   </main>
+        <label for="endereco">
+          <span>Endereço</span>
+          <input type="text" id="endereco" name="endereco">
+        </label>
 
-  </div>
+        <label for="cidade">
+          <span>Cidade</span>
+          <input type="text" id="cidade" name="cidade">
+        </label>
+
+        <label for="estado">
+          <span>Estado</span>
+          <input type="text" id="estado" name="estado">
+        </label>
+
+        <label for="telefone">
+          <span>Telefone</span>
+          <input type="text" id="telefone" name="telefone">
+        </label>
+
+        <input type="submit" value="Cadastre">
+      </form>
+    </div>
+    <section class="images">
+      <img src="/static/logo.png" alt="Logo">
+    </section>
+  </main>
+
 </body>
 </html>

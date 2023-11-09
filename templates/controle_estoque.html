@@ -1,30 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Relatório de Estoque</title>
+  <title>Cadastro Produtos</title>
   <link rel="stylesheet" href="/static/cadastro.css">
-  
+  <link rel="stylesheet" type="text/css" href="/static/styles.css">
+
+  <title>Controle de Estoque</title>
 </head>
+
 <body>
-  <h1>Relatório de Estoque</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Nome do Produto</th>
-        <th>Quantidade em Estoque</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for produto, quantidade in dados_estoque %}
-        <tr>
-          <td>{{ produto }}</td>
-          <td>{{ quantidade }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
+
+  {% include 'custom-header.html' %}
+
+  <h1>Lista de Produtos</h1>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Nome do Produto</th>
+      <th>Descrição</th>
+      <th>Categoria</th>
+      <th>Marca</th>
+      <th>Preço Unitário</th>
+      <th>Quantidade em Estoque</th>
+      <th>Data de Cadastro</th>
+    </tr>
+    {% for produto in produtos %}
+    <tr>
+      <td>{{ produto[0] }}</td>
+      <td>{{ produto[1] }}</td>
+      <td>{{ produto[2] }}</td>
+      <td>{{ produto[3] }}</td>
+      <td>{{ produto[4] }}</td>
+      <td>{{ produto[5] }}</td>
+      <td>{{ produto[6] }}</td>
+      <td>{{ produto[7] }}</td>
+    </tr>
+    {% endfor %}
   </table>
+
 </body>
+
 </html>
