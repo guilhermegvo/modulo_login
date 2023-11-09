@@ -9,11 +9,6 @@ app.static_url_path = '/static'
 app.static_folder = 'static'
 
 
-@app.route('/')
-def index():
-        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
-        return render_template('cadastro_produto.html')
-
 @app.route('/meuteste')
 def newindex():
     return render_template('newmain.html')
@@ -81,10 +76,7 @@ def admin():
             print(f"Formulário enviado da aba: {aba_origem}")
         return render_template('admin.html')
 
-#EXEMPLO TESTE
-@app.route('/teste', methods=['POST', 'GET'])
-def testeexe():
-    print('a')
+
 # GET = PEGAR VALORES | POST = CADASTRAR | PUT = ATUALIZAR | DELETE = DELETAR
 
 @app.route('/api/produtos', methods=['POST', 'GET'])
@@ -104,6 +96,11 @@ def produtos():
         
         cadastro_produto(dados_produto)
 
+        return render_template('cadastro_produto.html')
+    
+app.route('/')
+def index():
+        # Renderize a página cadastro_produto.html e passe custom_header como variável de contexto
         return render_template('cadastro_produto.html')
 
 if __name__ == '__main__':
